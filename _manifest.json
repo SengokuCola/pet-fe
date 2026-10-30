@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "id": "sengokucola.maimai-sprinkles",
   "name": "麦麦钢管",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "让麦麦被点击后发出钢管叫声",
   "plugin_type": "deskpet",
   "author": {"name": "Sengoku", "url": "https://github.com/SengokuCola"},

@@ -1,6 +1,6 @@
 [project]
 name = "pet-fe"
-version = "1.0.2"
+version = "1.0.3"
 description = "让麦麦被点击后发出钢管叫声"
 requires-python = ">=3.11"
 dependencies = ["maibot-plugin-sdk>=2.20.0,<3", "pywebview>=6.2,<7; sys_platform == 'win32'"]
