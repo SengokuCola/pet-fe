@@ -1,6 +1,6 @@
 [project]
 name = "pet-fe"
-version = "1.0.0"
+version = "1.0.1"
 description = "麦麦钢管：MaiBot 桌宠掉落特效与可调钢管音效"
 requires-python = ">=3.11"
 dependencies = ["maibot-plugin-sdk>=2.20.0,<3", "pywebview>=6.2,<7; sys_platform == 'win32'"]
