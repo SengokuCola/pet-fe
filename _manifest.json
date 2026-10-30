@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "id": "sengokucola.maimai-sprinkles",
+  "name": "麦麦钢管",
+  "version": "1.0.0",
+  "description": "仅 Windows：提起麦麦后掉落小麦麦，点击播放钢管音效，支持重叠播放和可调音量。",
+  "plugin_type": "extension",
+  "author": {"name": "Sengoku", "url": "https://github.com/SengokuCola"},
+  "license": "MIT",
+  "host_application": {"min_version": "1.3.19", "max_version": "1.3.99"},
+  "sdk": {"min_version": "2.20.0", "max_version": "2.99.99"},
+  "capabilities": ["desktop_pet.refresh_buttons"],
+  "dependencies": [{"type": "python_package", "name": "pywebview", "version_spec": ">=6.2,<7"}],
+  "urls": {
+    "repository": "https://github.com/SengokuCola/pet-fe",
+    "homepage": "https://github.com/SengokuCola/pet-fe",
+    "documentation": "https://github.com/SengokuCola/pet-fe/blob/main/README.md",
+    "issues": "https://github.com/SengokuCola/pet-fe/issues"
+  },
+  "changelog": "CHANGELOG.md",
+  "display": {"icon": {"type": "local", "value": "assets/mini_maimai.png", "fallback": "volume-2", "background": "#fff8ec"}},
+  "i18n": {"default_locale": "zh-CN", "supported_locales": ["zh-CN"]}
+}

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>钢管音量</title>
+  <style>
+    :root { --ink:#1d1d1b; --orange:#ec9341; --cream:#f4e0c6; --leaf:#8dc85c; --paper:#fff8ec; --paper-2:#f6e6cf; --progress:1%; }
+    * { box-sizing:border-box; }
+    html, body { width:100%; height:100%; margin:0; background:transparent; overflow:hidden; }
+    body { padding:10px; color:var(--ink); font:13px/1.5 "Microsoft YaHei UI","Segoe UI",sans-serif; user-select:none; }
+    button, input { font:inherit; color:inherit; }
+    button { cursor:pointer; }
+    button:focus-visible, input:focus-visible { outline:3px solid #ec93417a; outline-offset:3px; }
+    .panel { height:100%; min-height:0; display:flex; flex-direction:column; gap:14px; padding:20px 22px; background:var(--paper); border:2px solid var(--ink); border-radius:25px; box-shadow:0 5px 0 #1d1d1b2b; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .drag-title { flex:1; cursor:grab; }
+    h1 { font-size:19px; line-height:1.25; margin:0 0 3px; letter-spacing:.03em; }
+    .eyebrow { font-size:11px; color:#82715c; }
+    .close { width:30px; height:30px; flex-shrink:0; display:grid; place-items:center; border:1.5px solid var(--ink); border-radius:50%; background:var(--paper-2); }
+    .close svg { width:12px; height:12px; }
+    .close:hover { background:var(--cream); }
+    .hero { display:flex; align-items:center; justify-content:center; gap:24px; flex:1; min-height:82px; }
+    .mascot { width:104px; height:86px; display:grid; place-items:center; background:#f8e9ce; border-radius:26px 34px 27px 32px; transform:rotate(-5deg); }
+    .mascot img { width:98px; height:70px; transform:rotate(5deg); }
+    .amount { line-height:1; font-size:49px; font-weight:750; font-variant-numeric:tabular-nums; letter-spacing:-.06em; }
+    .amount span:last-child { font-size:22px; margin-left:4px; letter-spacing:0; font-weight:600; }
+    .amount-label { color:#82715c; font-size:11px; margin-top:8px; }
+    .slider-wrap { padding:0 2px; }
+    input[type="range"] { -webkit-appearance:none; appearance:none; width:100%; height:9px; margin:12px 0 11px; border:1.5px solid var(--ink); border-radius:20px; background:linear-gradient(to right,var(--orange) 0 var(--progress),var(--cream) var(--progress) 100%); cursor:pointer; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border:2px solid var(--ink); border-radius:50%; background:var(--orange); box-shadow:0 2px 0 var(--ink); }
+    .scale { display:flex; justify-content:space-between; font-size:10px; color:#82715c; }
+    .precise { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .precise label { font-size:12px; color:#655744; }
+    .entry { display:flex; align-items:center; gap:7px; }
+    .number-wrap { display:flex; align-items:center; gap:2px; padding:6px 8px; background:#fffdf7; border:1.5px solid var(--ink); border-radius:11px; }
+    input[type="number"] { width:63px; padding:0; background:transparent; border:0; outline:none; text-align:right; font-variant-numeric:tabular-nums; -moz-appearance:textfield; }
+    input::-webkit-inner-spin-button, input::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+    .number-wrap:focus-within { box-shadow:0 0 0 3px #ec93413b; }
+    .number-wrap span { color:#82715c; }
+    .apply { height:36px; padding:0 14px; background:var(--orange); border:1.5px solid var(--ink); border-radius:11px; box-shadow:0 2px 0 var(--ink); }
+    .quick { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .quick button { height:39px; display:flex; gap:7px; align-items:center; justify-content:center; border:1.5px solid var(--ink); border-radius:12px; background:var(--paper-2); box-shadow:0 2px 0 #1d1d1b35; }
+    .quick svg { width:15px; height:15px; }
+    .quick button:hover { background:var(--cream); }
+    .apply:active, .quick button:active { transform:translateY(2px); box-shadow:none; }
+    footer { border-top:1px dashed #d5c1a3; padding-top:10px; display:flex; align-items:center; gap:7px; min-height:29px; color:#82715c; font-size:10px; }
+    .dot { width:6px; height:6px; border-radius:50%; background:var(--leaf); flex-shrink:0; }
+    footer.error { color:#a83d2d; }
+    footer.error .dot { background:#c66a56; }
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <header>
+      <div class="drag-title pywebview-drag-region"><h1>钢管音量</h1><div class="eyebrow">麦麦的点击音效</div></div>
+      <button class="close" id="close" aria-label="关闭音量面板" title="关闭"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m3 3 10 10M13 3 3 13"/></svg></button>
+    </header>
+    <section class="hero" aria-label="当前音量">
+      <div class="mascot"><img src="../assets/mini_maimai.svg" alt="麦麦"></div>
+      <div><div class="amount"><span id="amount">1</span><span>%</span></div><div class="amount-label">只调整钢管音效</div></div>
+    </section>
+    <div class="slider-wrap">
+      <input id="slider" type="range" min="0" max="100" step="0.01" value="1" aria-label="钢管音量">
+      <div class="scale"><span>静音</span><span>原始音量</span></div>
+    </div>
+    <form class="precise" id="precise" novalidate>
+      <label for="number">精确设置</label>
+      <div class="entry"><div class="number-wrap"><input id="number" type="number" min="0" max="100" step="0.01" value="1" aria-label="精确音量百分比"><span>%</span></div><button class="apply" type="submit">应用</button></div>
+    </form>
+    <div class="quick">
+      <button id="mute"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 5 7H2v6h3l4 3ZM13 7l5 6m0-6-5 6"/></svg>静音</button>
+      <button id="reset"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8a6 6 0 1 1 0 5M4 3v5h5"/></svg>恢复 1%</button>
+    </div>
+    <footer id="status"><span class="dot"></span><span id="status-text" role="status">调整后自动保存 · 不影响正在播放的音效</span></footer>
+  </main>
+  <script>
+    (() => {
+      const slider = document.getElementById('slider');
+      const number = document.getElementById('number');
+      const amount = document.getElementById('amount');
+      const footer = document.getElementById('status');
+      const status = document.getElementById('status-text');
+      let api, pending = null, saving = null, confirmed = 1;
+      function display(value) {
+        slider.value = number.value = String(value);
+        amount.textContent = String(value);
+        slider.setAttribute('aria-valuetext', value + '%');
+        document.documentElement.style.setProperty('--progress', value + '%');
+      }
+      function fail(error) {
+        footer.classList.add('error');
+        status.textContent = error.message || String(error);
+      }
+      async function flush() {
+        while (pending !== null) {
+          const value = pending;
+          pending = null;
+          try {
+            await api.set_volume(value);
+            confirmed = value;
+            footer.classList.remove('error');
+            status.textContent = '音量设为 ' + value + '% · 之后的点击使用新音量';
+          } catch (error) {
+            pending = null;
+            display(confirmed);
+            fail(error);
+            throw error;
+          }
+        }
+      }
+      function setVolume(value) {
+        if (!Number.isFinite(value) || value < 0 || value > 100) {
+          return Promise.reject(new Error('请输入 0～100 之间的音量'));
+        }
+        value = Math.round(value * 100) / 100;
+        pending = value;
+        display(value);
+        if (!saving) saving = flush().finally(() => { saving = null; });
+        return saving;
+      }
+      slider.addEventListener('input', () => setVolume(slider.valueAsNumber).catch(fail));
+      document.getElementById('precise').addEventListener('submit', (event) => {
+        event.preventDefault();
+        setVolume(number.valueAsNumber).catch(fail);
+      });
+      document.getElementById('mute').addEventListener('click', () => setVolume(0).catch(fail));
+      document.getElementById('reset').addEventListener('click', () => setVolume(1).catch(fail));
+      document.getElementById('close').addEventListener('click', async () => {
+        try { if (saving) await saving; await api.close(); } catch (error) { fail(error); }
+      });
+      window.volumePanel = {setVolume};
+      window.addEventListener('pywebviewready', async () => {
+        api = window.pywebview.api;
+        try {
+          await api.fit(devicePixelRatio);
+          function watchScale() {
+            matchMedia('(resolution: ' + devicePixelRatio + 'dppx)').addEventListener('change', () => {
+              api.fit(devicePixelRatio).catch(fail);
+              watchScale();
+            }, {once:true});
+          }
+          watchScale();
+          const state = await api.get_state();
+          confirmed = state.volume;
+          display(confirmed);
+          await api.ready();
+          if (state.smoke_test) {
+            await setVolume(12.5);
+            await setVolume(state.volume);
+            await api.close();
+          }
+        } catch (error) { fail(error); }
+      });
+    })();
+  </script>
+</body>
+</html>

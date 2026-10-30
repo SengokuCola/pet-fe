@@ -1,0 +1,2 @@
+maibot-plugin-sdk>=2.20.0,<3
+pywebview>=6.2,<7; sys_platform == 'win32'

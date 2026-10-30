@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="builtin-pet" width="150" height="107" viewBox="0 0 210 150" aria-hidden="true"><style>.eye-happy,#mouth{display:none}</style>
+    <defs>
+      <path id="body-shape" d="M39 96C39 68 72 48 128 44C174 41 201 64 201 93C201 124 172 141 127 141C74 141 39 124 39 96Z"/>
+      <clipPath id="body-clip"><use href="#body-shape"/></clipPath>
+      <path id="tail-leaf" d="M-4 0C-13 -4 -18 -18 -14 -29C-10 -43 10 -43 14 -29C18 -18 13 -4 4 0Q0 2 -4 0Z"/>
+    </defs>
+    <g id="float">
+      <g id="squash">
+        <g id="tail" fill="#8dc85c" stroke="#1d1d1b" stroke-width="1.9" stroke-linejoin="round">
+          <use href="#tail-leaf" transform="translate(44 96)"/>
+          <use href="#tail-leaf" transform="translate(44 96) rotate(90)"/>
+          <use href="#tail-leaf" transform="translate(44 96) rotate(180)"/>
+          <use href="#tail-leaf" transform="translate(44 96) rotate(270)"/>
+        </g>
+        <g id="sprout" stroke="#1d1d1b" stroke-width="1.7" stroke-linejoin="round" fill="#8dc85c">
+          <path d="M143.6 47C144.2 38 143.8 29 143.4 21H148.4C148.6 29 149.2 38 149 47Z"/>
+          <g id="leaves">
+            <ellipse cx="129.5" cy="15.5" rx="16.5" ry="9.4" transform="rotate(-7 129.5 15.5)"/>
+            <ellipse cx="163.5" cy="18" rx="17.2" ry="9.6" transform="rotate(5 163.5 18)"/>
+          </g>
+        </g>
+        <g id="body">
+          <use href="#body-shape" fill="#ec9341"/>
+          <path d="M20 99L215 101.5V150H20Z" fill="#f4e0c6" clip-path="url(#body-clip)"/>
+          <use href="#body-shape" fill="none" stroke="#1d1d1b" stroke-width="1.9"/>
+        </g>
+        <g id="face">
+          <g class="eye-open">
+            <circle cx="135" cy="85" r="8" fill="#fff" stroke="#1d1d1b" stroke-width="1.7"/>
+            <circle class="pupil" cx="135" cy="85" r="4.6" fill="#1d1d1b"/>
+          </g>
+          <g class="eye-open">
+            <circle cx="177.5" cy="85" r="8" fill="#fff" stroke="#1d1d1b" stroke-width="1.7"/>
+            <circle class="pupil" cx="177.5" cy="85" r="4.6" fill="#1d1d1b"/>
+          </g>
+          <g class="eye-happy" fill="none" stroke="#1d1d1b" stroke-width="2.4" stroke-linecap="round">
+            <path d="M128.5 88Q135 79.5 141.5 88"/>
+            <path d="M171 88Q177.5 79.5 184 88"/>
+          </g>
+          <ellipse id="mouth" cx="157.3" cy="108" rx="4.2" ry="3" fill="#b8473f"/>
+          <g fill="#1d1d1b" stroke="#1d1d1b" stroke-width="1.4" stroke-linejoin="round">
+            <path d="M148.6 102H166L162.1 107H152.5Z"/>
+            <path id="jaw" d="M152.5 107.4H162.1L157.3 112.4Z"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
